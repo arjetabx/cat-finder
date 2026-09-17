@@ -1,10 +1,10 @@
-#CatFinder 
+# CatFinder 
 This is a web application designed to help reunite lost cats with their owners. Users can report lost or found cats, browse nearby reports, and identify potential matches based on characteristics (fur colour, breed, eye colour, patterns etc.).
 
-##Status
+## Status
 In development-currently building the frontend using React.
 
-##Planned Features
+## Planned Features
 - Report lost and found cats
 - Interactive map of reports
 - Search and filter cats
@@ -12,14 +12,14 @@ In development-currently building the frontend using React.
 - Potential lost/found cat matching
 - Responsive and accessible design
 
-##Tech Stack
+## Tech Stack
 - React + JavaScript
 - Vite
 - Node.js + Express
 - SQLLite
 - Leaflet + OpenStreetMap
 
-##Run Locally
+## Run Locally
 clone repo:
 git clone https://github.com/arjetabx/cat-finder.git
 cd cat-finder/frontend
@@ -34,5 +34,5 @@ npm run dev
 
 Then open the local URL shown in the terminal.
 
-##Author
+## Author
 Arjeta Bokciu
