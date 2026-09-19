@@ -395,3 +395,10 @@ main section:last-child button:hover {
   color: #68716b;
   line-height: 1.6;
 }
+
+.field-error {
+  margin: 0;
+  color: #b34d4d;
+  font-size: 13px;
+  line-height: 1.4;
+}

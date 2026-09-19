@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
 function LostCat() {
-    const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [errors, setErrors] = useState({})
+
   const [formData, setFormData] = useState({
     catName: '',
     breed: '',
@@ -25,12 +27,75 @@ function LostCat() {
       [name]: files ? files[0] : value,
     })
   }
-
+  function validateForm() {
+    const newErrors = {}
+  
+    if (!formData.catName.trim()) {
+      newErrors.catName = "Please enter your cat's name."
+    }
+  
+    if (!formData.breed.trim()) {
+      newErrors.breed = "Please enter your cat's breed."
+    }
+  
+    if (!formData.sex) {
+      newErrors.sex = "Please select your cat's sex."
+    }
+  
+    if (!formData.colour.trim()) {
+      newErrors.colour = "Please describe your cat\'s colour and markings."
+    }
+  
+    if (!formData.description.trim()) {
+      newErrors.description = "Please provide a description of your cat."
+    }
+  
+    if (!formData.location.trim()) {
+      newErrors.location = "Please enter where your cat was last seen."
+    }
+  
+    if (!formData.date) {
+      newErrors.date = "Please enter the date your cat was last seen."
+    }
+  
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Please enter your full name."
+    }
+  
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please enter your email address.'
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address.'
+    }
+  
+    if (!formData.password) {
+      newErrors.password = 'Please create a password.'
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters.'
+    }
+  
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password.'
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match.'
+    }
+  
+    return newErrors
+  }
   function handleSubmit(event) {
     event.preventDefault()
 
-    console.log('Lost cat report:', formData)
-    setSubmitted(true)
+    const validationErrors = validateForm()
+    
+    if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors)
+        setSubmitted(false)
+        return
+      }
+    
+      setErrors({})
+      console.log('Lost cat report:', formData)
+      setSubmitted(true)
   }
 
   return (
@@ -60,6 +125,9 @@ function LostCat() {
               value={formData.catName}
               onChange={handleChange}
             />
+            {errors.catName && (
+              <p className="field-error">{errors.catName}</p>
+            )}
           </div>
 
           <div className="form-row">
@@ -73,6 +141,9 @@ function LostCat() {
                 value={formData.breed}
                 onChange={handleChange}
               />
+            {errors.breed && (
+              <p className="field-error">{errors.breed}</p>
+            )}
             </div>
 
             <div className="form-group">
@@ -83,6 +154,9 @@ function LostCat() {
                 value={formData.sex}
                 onChange={handleChange}
               >
+                {errors.sex && (
+                <p className="field-error">{errors.sex}</p>
+                )}
                 <option value="">Select</option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
@@ -101,6 +175,9 @@ function LostCat() {
               value={formData.colour}
               onChange={handleChange}
             />
+            {errors.colour && (
+              <p className="field-error">{errors.colour}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -113,6 +190,9 @@ function LostCat() {
               value={formData.description}
               onChange={handleChange}
             />
+            {errors.description && (
+              <p className="field-error">{errors.description}</p>
+            )}
           </div>
         </section>
 
@@ -129,6 +209,9 @@ function LostCat() {
               value={formData.location}
               onChange={handleChange}
             />
+            {errors.location && (
+              <p className="field-error">{errors.location}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -140,6 +223,9 @@ function LostCat() {
               value={formData.date}
               onChange={handleChange}
             />
+            {errors.date && (
+              <p className="field-error">{errors.date}</p>
+            )}
           </div>
         </section>
 
@@ -189,6 +275,9 @@ function LostCat() {
               value={formData.fullName}
               onChange={handleChange}
             />
+            {errors.fullName && (
+              <p className="field-error">{errors.fullName}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -201,6 +290,9 @@ function LostCat() {
               value={formData.email}
               onChange={handleChange}
             />
+            {errors.email && (
+              <p className="field-error">{errors.email}</p>
+            )}
           </div>
 
           <div className="form-row">
@@ -214,6 +306,9 @@ function LostCat() {
                 value={formData.password}
                 onChange={handleChange}
               />
+            {errors.password && (
+              <p className="field-error">{errors.password}</p>
+            )}
             </div>
 
             <div className="form-group">
@@ -226,6 +321,9 @@ function LostCat() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
               />
+            {errors.confirmPassword && (
+              <p className="field-error">{errors.confirmPassword}</p>
+            )}
             </div>
           </div>
         </section>
