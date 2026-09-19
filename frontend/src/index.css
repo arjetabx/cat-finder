@@ -1,7 +1,7 @@
 :root {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #2f3431;
-  background: #f8f7f3;
+  color: #303833;
+  background: #fff9f2;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -13,11 +13,17 @@
 body {
   margin: 0;
   min-width: 320px;
-  background: #f8f7f3;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(232, 139, 114, 0.08), transparent 25%),
+    radial-gradient(circle at 90% 20%, rgba(111, 143, 123, 0.1), transparent 25%),
+    #fff9f2;
 }
 
 button,
-a {
+a,
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -25,43 +31,57 @@ button {
   cursor: pointer;
 }
 
-/* Navigation */
+/* =========================
+   Navigation
+========================= */
 
 nav {
-  height: 76px;
+  height: 78px;
   padding: 0 7%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(248, 247, 243, 0.95);
-  border-bottom: 1px solid #e8e6df;
+  background: rgba(255, 249, 242, 0.92);
+  border-bottom: 1px solid rgba(111, 143, 123, 0.15);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
 }
 
 nav h2 {
   margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-  color: #49665a;
+  color: #4f715f;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+nav h2::before {
+  content: "🐾 ";
+  font-size: 20px;
 }
 
 nav div {
   display: flex;
-  gap: 32px;
+  align-items: center;
+  gap: 30px;
 }
 
 nav a {
-  color: #505752;
+  color: #59625c;
   text-decoration: none;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.2s ease;
 }
 
 nav a:hover {
-  color: #49665a;
+  color: #e07d64;
 }
 
-/* Main */
+/* =========================
+   General page
+========================= */
 
 main {
   max-width: 1200px;
@@ -69,141 +89,184 @@ main {
   padding: 70px 7%;
 }
 
-/* Hero */
+/* =========================
+   Homepage Hero
+========================= */
 
 main section:first-child {
+  position: relative;
+  overflow: hidden;
   text-align: center;
-  padding: 70px 20px 90px;
-  background: #edf2ec;
-  border-radius: 28px;
+  padding: 85px 30px 95px;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(245, 217, 139, 0.45), transparent 25%),
+    radial-gradient(circle at 90% 80%, rgba(220, 235, 240, 0.8), transparent 30%),
+    #edf3ec;
+  border-radius: 38px;
+  border: 1px solid rgba(111, 143, 123, 0.12);
+}
+
+/* Decorative circles */
+
+main section:first-child::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(232, 139, 114, 0.13);
+  top: -70px;
+  left: -50px;
+}
+
+main section:first-child::after {
+  content: "🐾";
+  position: absolute;
+  right: 45px;
+  top: 35px;
+  font-size: 38px;
+  opacity: 0.18;
+  transform: rotate(12deg);
 }
 
 main section:first-child h1 {
-  max-width: 700px;
-  margin: 0 auto 20px;
-  font-size: clamp(42px, 6vw, 68px);
-  line-height: 1.05;
-  letter-spacing: -2px;
-  color: #33483e;
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto 22px;
+  font-size: clamp(44px, 6vw, 70px);
+  line-height: 1.03;
+  letter-spacing: -2.8px;
+  color: #35483d;
+}
+
+main section:first-child h1::after {
+  content: "";
+  display: block;
+  width: 65px;
+  height: 5px;
+  margin: 20px auto 0;
+  border-radius: 10px;
+  background: #e88b72;
 }
 
 main section:first-child p {
-  max-width: 600px;
-  margin: 0 auto 35px;
+  position: relative;
+  max-width: 650px;
+  margin: 0 auto 38px;
   font-size: 18px;
   line-height: 1.7;
-  color: #68716b;
+  color: #69736c;
 }
 
-/* Buttons */
+/* Homepage buttons */
 
 main section:first-child div {
+  position: relative;
   display: flex;
   justify-content: center;
-  gap: 14px;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
-button {
+main section:first-child button {
+  min-width: 185px;
+  padding: 15px 25px;
   border: none;
-  border-radius: 12px;
-  padding: 14px 24px;
+  border-radius: 50px;
   font-size: 15px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+main section:first-child button:hover {
+  transform: translateY(-3px);
 }
 
 main section:first-child button:first-child {
-  background: #49665a;
+  background: #e88b72;
   color: white;
+  box-shadow: 0 8px 20px rgba(232, 139, 114, 0.25);
 }
 
 main section:first-child button:first-child:hover {
-  background: #3d574d;
-  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(232, 139, 114, 0.32);
 }
 
 main section:first-child button:last-child {
   background: #ffffff;
-  color: #49665a;
-  border: 1px solid #d8ded8;
+  color: #4f715f;
+  border: 2px solid #b8cdbd;
+  box-shadow: 0 6px 18px rgba(70, 90, 78, 0.08);
 }
 
 main section:first-child button:last-child:hover {
-  background: #f5f7f4;
-  transform: translateY(-2px);
+  background: #f8fbf8;
+  border-color: #6f8f7b;
 }
 
-/* Browse section */
+/* =========================
+   Browse section
+========================= */
 
 main section:last-child {
+  position: relative;
   margin-top: 55px;
-  padding: 45px;
+  padding: 48px 50px;
   background: #ffffff;
-  border: 1px solid #e8e6df;
-  border-radius: 24px;
+  border: 1px solid #eee4d8;
+  border-radius: 30px;
+  box-shadow: 0 12px 35px rgba(75, 65, 55, 0.06);
+  overflow: hidden;
+}
+
+main section:last-child::after {
+  content: "🐱";
+  position: absolute;
+  right: 45px;
+  bottom: 25px;
+  font-size: 75px;
+  opacity: 0.08;
+  transform: rotate(-8deg);
 }
 
 main section:last-child h2 {
+  position: relative;
+  z-index: 1;
   margin: 0 0 10px;
-  font-size: 30px;
-  color: #343b37;
+  font-size: 31px;
+  letter-spacing: -0.8px;
+  color: #35483d;
 }
 
 main section:last-child p {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
   margin: 0 0 25px;
-  color: #707771;
+  color: #707871;
   line-height: 1.6;
 }
 
 main section:last-child button {
-  background: #dce8ee;
-  color: #405a67;
+  position: relative;
+  z-index: 1;
+  padding: 13px 22px;
+  background: #dcebf0;
+  color: #496673;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 main section:last-child button:hover {
-  background: #d1e0e8;
+  background: #cfe3e9;
   transform: translateY(-2px);
 }
 
-/* Mobile */
-
-@media (max-width: 650px) {
-  nav {
-    padding: 0 5%;
-  }
-
-  nav div {
-    gap: 14px;
-  }
-
-  nav a {
-    font-size: 13px;
-  }
-
-  main {
-    padding: 35px 5%;
-  }
-
-  main section:first-child {
-    padding: 55px 20px 65px;
-  }
-
-  main section:first-child h1 {
-    font-size: 44px;
-  }
-
-  main section:first-child p {
-    font-size: 16px;
-  }
-
-  main section:last-child {
-    padding: 30px;
-  }
-}
-
-/* Report Page*/
-/* Report page */
+/* =========================
+   Report pages
+========================= */
 
 .report-page {
   max-width: 900px;
@@ -217,45 +280,66 @@ main section:last-child button:hover {
 }
 
 .report-label {
-  margin: 0 0 12px;
-  color: #49665a;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  display: inline-block;
+  margin: 0 0 15px;
+  padding: 7px 14px;
+  background: #f8dfd7;
+  color: #c56850;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
 }
 
 .report-header h1 {
   margin: 0 0 18px;
-  font-size: 48px;
-  line-height: 1.1;
-  color: #33483e;
+  font-size: 50px;
+  line-height: 1.05;
+  letter-spacing: -1.8px;
+  color: #35483d;
 }
 
 .report-header > p:last-child {
-  max-width: 600px;
+  max-width: 620px;
   margin: 0 auto;
-  color: #68716b;
+  color: #69736c;
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
+
+/* Form */
 
 .cat-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 22px;
 }
 
 .form-section {
-  padding: 35px;
-  background: #ffffff;
-  border: 1px solid #e8e6df;
-  border-radius: 20px;
+  position: relative;
+  padding: 36px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #eee4d8;
+  border-radius: 25px;
+  box-shadow: 0 8px 25px rgba(75, 65, 55, 0.045);
+}
+
+.form-section::before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 35px;
+  left: 0;
+  top: 35px;
+  border-radius: 0 8px 8px 0;
+  background: #e88b72;
 }
 
 .form-section h2 {
   margin: 0 0 25px;
-  font-size: 24px;
-  color: #343b37;
+  font-size: 23px;
+  color: #35483d;
+  letter-spacing: -0.4px;
 }
 
 .form-row {
@@ -277,47 +361,71 @@ main section:last-child button:hover {
 
 .form-group label {
   font-size: 14px;
-  font-weight: 600;
-  color: #505752;
+  font-weight: 700;
+  color: #4f5a53;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #d8ded8;
-  border-radius: 10px;
-  background: #fbfbf9;
-  color: #343b37;
-  font: inherit;
+  padding: 14px 15px;
+  border: 1.5px solid #dddcd4;
+  border-radius: 13px;
+  background: #fffdf9;
+  color: #303833;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: #b9cbbd;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #49665a;
-  box-shadow: 0 0 0 3px rgba(73, 102, 90, 0.1);
+  border-color: #6f8f7b;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(111, 143, 123, 0.12);
 }
 
 .form-group textarea {
   resize: vertical;
 }
 
+/* Help text */
+
 .form-help {
   margin: -10px 0 20px;
-  color: #707771;
+  color: #7b817d;
   font-size: 14px;
+  line-height: 1.5;
 }
 
+/* =========================
+   Photo upload
+========================= */
+
 .upload-box {
-  padding: 30px;
+  padding: 35px;
   text-align: center;
-  border: 2px dashed #d8ded8;
-  border-radius: 12px;
-  background: #f8f7f3;
+  border: 2px dashed #d7cfc3;
+  border-radius: 18px;
+  background: #fffaf3;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.upload-box:hover {
+  border-color: #e88b72;
+  background: #fff7f1;
 }
 
 .upload-box input {
@@ -326,45 +434,198 @@ main section:last-child button:hover {
 
 .upload-box label {
   display: inline-block;
-  padding: 12px 20px;
-  background: #dce8ee;
-  color: #405a67;
-  border-radius: 10px;
+  padding: 12px 22px;
+  background: #f4d6cd;
+  color: #a95743;
+  border-radius: 50px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .upload-box label:hover {
-  background: #d1e0e8;
-}
-
-.submit-button {
-  align-self: flex-start;
-  padding: 15px 26px;
-  background: #49665a;
-  color: white;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.submit-button:hover {
-  background: #3d574d;
+  background: #edc5ba;
   transform: translateY(-2px);
 }
 
+.selected-file {
+  margin: 15px 0 0;
+  color: #607064;
+  font-size: 14px;
+}
+
+/* =========================
+   Map
+========================= */
+
+.location-picker {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 2px solid #e2ddd4;
+  box-shadow: 0 8px 20px rgba(60, 60, 50, 0.08);
+}
+
+.location-map {
+  width: 100%;
+  height: 100%;
+}
+
+.location-selected {
+  margin: -5px 0 20px;
+  padding: 10px 14px;
+  display: inline-block;
+  background: #e4f0e6;
+  color: #55755f;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================
+   Errors
+========================= */
+
+.field-error {
+  margin: 0;
+  color: #c45d4d;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* =========================
+   Submit button
+========================= */
+
+.submit-button {
+  align-self: flex-start;
+  padding: 16px 28px;
+  background: #6f8f7b;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(111, 143, 123, 0.2);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.submit-button:hover {
+  background: #5f806b;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(111, 143, 123, 0.27);
+}
+
+/* =========================
+   Success message
+========================= */
+
+.success-message {
+  padding: 27px 30px;
+  background: #eaf3eb;
+  border: 1px solid #c9dccd;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-message::after {
+  content: "🐾";
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  font-size: 42px;
+  opacity: 0.15;
+}
+
+.success-message h2 {
+  margin: 0 0 8px;
+  color: #45644f;
+  font-size: 20px;
+}
+
+.success-message p {
+  max-width: 650px;
+  margin: 0;
+  color: #647268;
+  line-height: 1.6;
+}
+
+/* =========================
+   Mobile
+========================= */
+
 @media (max-width: 650px) {
+  nav {
+    height: auto;
+    padding: 18px 5%;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  nav h2 {
+    font-size: 21px;
+  }
+
+  nav div {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+  main {
+    padding: 35px 5%;
+  }
+
+  main section:first-child {
+    padding: 60px 20px 70px;
+    border-radius: 28px;
+  }
+
+  main section:first-child h1 {
+    font-size: 43px;
+    letter-spacing: -1.8px;
+  }
+
+  main section:first-child p {
+    font-size: 16px;
+  }
+
+  main section:first-child button {
+    width: 100%;
+  }
+
+  main section:last-child {
+    padding: 32px 25px;
+    border-radius: 24px;
+  }
+
+  main section:last-child h2 {
+    font-size: 27px;
+  }
+
   .report-page {
-    padding: 40px 5%;
+    padding: 45px 5%;
   }
 
   .report-header h1 {
-    font-size: 40px;
+    font-size: 42px;
   }
 
   .form-section {
-    padding: 25px;
+    padding: 30px 24px;
+    border-radius: 22px;
   }
 
   .form-row {
@@ -372,33 +633,11 @@ main section:last-child button:hover {
     gap: 0;
   }
 
+  .location-picker {
+    height: 340px;
+  }
+
   .submit-button {
     width: 100%;
   }
-}
-
-.success-message {
-  padding: 25px 30px;
-  background: #edf2ec;
-  border: 1px solid #cbd8cd;
-  border-radius: 16px;
-}
-
-.success-message h2 {
-  margin: 0 0 8px;
-  color: #33483e;
-  font-size: 20px;
-}
-
-.success-message p {
-  margin: 0;
-  color: #68716b;
-  line-height: 1.6;
-}
-
-.field-error {
-  margin: 0;
-  color: #b34d4d;
-  font-size: 13px;
-  line-height: 1.4;
 }
