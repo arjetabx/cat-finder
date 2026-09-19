@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import LocationPicker from '../components/LocationPicker'
 
 function LostCat() {
   const [submitted, setSubmitted] = useState(false)
@@ -11,6 +12,8 @@ function LostCat() {
     colour: '',
     description: '',
     location: '',
+    latitude: null,
+    longitude: null,
     date: '',
     photo: null,
     fullName: '',
@@ -197,37 +200,61 @@ function LostCat() {
         </section>
 
         <section className="form-section">
-          <h2>Where and when was your cat last seen?</h2>
+  <h2>Where and when was your cat last seen?</h2>
 
-          <div className="form-group">
-            <label htmlFor="location">Last known location</label>
-            <input
-              id="location"
-              name="location"
-              type="text"
-              placeholder="e.g. Walthamstow, London"
-              value={formData.location}
-              onChange={handleChange}
-            />
-            {errors.location && (
-              <p className="field-error">{errors.location}</p>
-            )}
-          </div>
+  <div className="form-group">
+    <label htmlFor="location">Last known location</label>
 
-          <div className="form-group">
-            <label htmlFor="date">Date last seen</label>
-            <input
-              id="date"
-              name="date"
-              type="date"
-              value={formData.date}
-              onChange={handleChange}
-            />
-            {errors.date && (
-              <p className="field-error">{errors.date}</p>
-            )}
-          </div>
-        </section>
+    <input
+      id="location"
+      name="location"
+      type="text"
+      placeholder="e.g. Walthamstow, London"
+      value={formData.location}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <label>Pin the location on the map</label>
+
+    <p className="form-help">
+      Click on the map to show where your cat was last seen.
+    </p>
+
+    <LocationPicker
+      onLocationSelect={({ latitude, longitude }) => {
+        setFormData({
+          ...formData,
+          latitude,
+          longitude,
+        })
+      }}
+    />
+  </div>
+
+  {formData.latitude && formData.longitude && (
+    <p className="location-selected">
+      Location selected successfully.
+    </p>
+  )}
+
+  <div className="form-group">
+    <label htmlFor="date">Date last seen</label>
+
+    <input
+      id="date"
+      name="date"
+      type="date"
+      value={formData.date}
+      onChange={handleChange}
+    />
+
+    {errors.date && (
+      <p className="field-error">{errors.date}</p>
+    )}
+  </div>
+</section>
 
         <section className="form-section">
           <h2>Add a photo</h2>
