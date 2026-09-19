@@ -6,6 +6,7 @@ function FoundCat() {
   const [errors, setErrors] = useState({})
 
   const [formData, setFormData] = useState({
+    reportType: '',
     breed: '',
     sex: '',
     colour: '',
@@ -33,8 +34,12 @@ function FoundCat() {
   function validateForm() {
     const newErrors = {}
 
+    if (!formData.reportType) {
+      newErrors.reportType = 'Please select what happened.'
+    }
+
     if (!formData.breed.trim()) {
-      newErrors.breed = "Please enter the cat's breed, or select unknown."
+      newErrors.breed = "Please enter the cat's breed, or enter unknown."
     }
 
     if (!formData.sex) {
@@ -50,11 +55,11 @@ function FoundCat() {
     }
 
     if (!formData.location.trim()) {
-      newErrors.location = 'Please enter where the cat was found or spotted.'
+      newErrors.location = 'Please enter where you saw the cat.'
     }
 
     if (!formData.date) {
-      newErrors.date = 'Please enter the date the cat was found or spotted.'
+      newErrors.date = 'Please enter the date you saw the cat.'
     }
 
     if (!formData.fullName.trim()) {
@@ -94,36 +99,126 @@ function FoundCat() {
     }
 
     setErrors({})
-    console.log('Found cat report:', formData)
+    console.log('Found/spotted cat report:', formData)
     setSubmitted(true)
   }
 
   return (
-    <main className="report-page">
-      <section className="report-header">
-        <p className="report-label">REPORT A FOUND OR SPOTTED CAT</p>
+    <main className="found-page">
+      {/* Header */}
 
-        <h1>Tell us about the cat</h1>
+      <section className="found-header">
+        <div className="found-header-content">
+          <p className="eyebrow">REPORT A CAT</p>
 
-        <p>
-          If you have found or spotted a cat, provide as much information as
-          you can to help identify their owner.
-        </p>
+          <h1>
+            Seen a cat that
+            <span>might need help?</span>
+          </h1>
+
+          <p>
+            Whether you've found a cat or simply spotted one nearby, sharing
+            the details could help connect them with their owner.
+          </p>
+        </div>
+
+        <div className="found-header-decoration">
+          <span>🐾</span>
+        </div>
       </section>
 
-      <form className="cat-form" onSubmit={handleSubmit}>
-        <section className="form-section">
-          <h2>About the cat</h2>
+      <form className="found-form" onSubmit={handleSubmit}>
+        {/* What happened */}
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="breed">Breed</label>
+        <section className="found-section">
+          <div className="found-section-heading">
+            <span className="section-number">01</span>
+
+            <div>
+              <p className="section-kicker">START HERE</p>
+              <h2>What happened?</h2>
+            </div>
+          </div>
+
+          <div className="report-type-options">
+            <label
+              className={`report-type-card ${
+                formData.reportType === 'found' ? 'selected' : ''
+              }`}
+            >
+              <input
+                type="radio"
+                name="reportType"
+                value="found"
+                checked={formData.reportType === 'found'}
+                onChange={handleChange}
+              />
+
+              <span className="report-type-icon">🐱</span>
+
+              <span>
+                <strong>I found a cat</strong>
+                <small>
+                  The cat is with me or I have taken them somewhere safe.
+                </small>
+              </span>
+            </label>
+
+            <label
+              className={`report-type-card ${
+                formData.reportType === 'spotted' ? 'selected' : ''
+              }`}
+            >
+              <input
+                type="radio"
+                name="reportType"
+                value="spotted"
+                checked={formData.reportType === 'spotted'}
+                onChange={handleChange}
+              />
+
+              <span className="report-type-icon">👀</span>
+
+              <span>
+                <strong>I spotted a cat</strong>
+                <small>
+                  I saw a cat nearby that could be someone's missing pet.
+                </small>
+              </span>
+            </label>
+          </div>
+
+          {errors.reportType && (
+            <p className="field-error">{errors.reportType}</p>
+          )}
+        </section>
+
+        {/* Cat details */}
+
+        <section className="found-section">
+          <div className="found-section-heading">
+            <span className="section-number">02</span>
+
+            <div>
+              <p className="section-kicker">THE CAT</p>
+              <h2>What did they look like?</h2>
+            </div>
+          </div>
+
+          <p className="section-description">
+            Don't worry if you don't know everything. The details you do have
+            can still be useful.
+          </p>
+
+          <div className="found-form-grid">
+            <div className="found-field">
+              <label htmlFor="found-breed">Breed</label>
 
               <input
-                id="breed"
+                id="found-breed"
                 name="breed"
                 type="text"
-                placeholder="e.g. Bengal"
+                placeholder="e.g. Bengal, tabby, unknown"
                 value={formData.breed}
                 onChange={handleChange}
               />
@@ -133,11 +228,11 @@ function FoundCat() {
               )}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="sex">Sex</label>
+            <div className="found-field">
+              <label htmlFor="found-sex">Sex</label>
 
               <select
-                id="sex"
+                id="found-sex"
                 name="sex"
                 value={formData.sex}
                 onChange={handleChange}
@@ -154,14 +249,14 @@ function FoundCat() {
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="colour">Colour and markings</label>
+          <div className="found-field">
+            <label htmlFor="found-colour">Colour and markings</label>
 
             <input
-              id="colour"
+              id="found-colour"
               name="colour"
               type="text"
-              placeholder="e.g. Black with a white chest"
+              placeholder="e.g. Ginger and white with a small mark on the left ear"
               value={formData.colour}
               onChange={handleChange}
             />
@@ -171,14 +266,14 @@ function FoundCat() {
             )}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
+          <div className="found-field">
+            <label htmlFor="found-description">Anything else you noticed</label>
 
             <textarea
-              id="description"
+              id="found-description"
               name="description"
               rows="5"
-              placeholder="Describe any distinctive features, markings, collar, behaviour, or anything else you noticed..."
+              placeholder="Describe anything distinctive — collar, markings, behaviour, approximate age, injuries, or anything else you noticed."
               value={formData.description}
               onChange={handleChange}
             />
@@ -189,14 +284,28 @@ function FoundCat() {
           </div>
         </section>
 
-        <section className="form-section">
-          <h2>Where and when was the cat seen?</h2>
+        {/* Location */}
 
-          <div className="form-group">
-            <label htmlFor="location">Location</label>
+        <section className="found-section">
+          <div className="found-section-heading">
+            <span className="section-number">03</span>
+
+            <div>
+              <p className="section-kicker">WHERE & WHEN</p>
+              <h2>Where did you see them?</h2>
+            </div>
+          </div>
+
+          <p className="section-description">
+            A location helps owners understand whether this could be their cat
+            and helps us surface nearby reports.
+          </p>
+
+          <div className="found-field">
+            <label htmlFor="found-location">Location</label>
 
             <input
-              id="location"
+              id="found-location"
               name="location"
               type="text"
               placeholder="e.g. Walthamstow, London"
@@ -209,12 +318,15 @@ function FoundCat() {
             )}
           </div>
 
-          <div className="form-group">
-            <label>Pin the location on the map</label>
+          <div className="found-map-wrapper">
+            <div className="map-heading">
+              <div>
+                <strong>Pin the location</strong>
+                <p>Click the map to show where you saw the cat.</p>
+              </div>
 
-            <p className="form-help">
-              Click on the map to show where you found or spotted the cat.
-            </p>
+              <span>📍</span>
+            </div>
 
             <LocationPicker
               onLocationSelect={({ latitude, longitude }) => {
@@ -229,15 +341,15 @@ function FoundCat() {
 
           {formData.latitude && formData.longitude && (
             <p className="location-selected">
-              Location selected successfully.
+              ✓ Location selected successfully
             </p>
           )}
 
-          <div className="form-group">
-            <label htmlFor="date">Date seen</label>
+          <div className="found-field date-field">
+            <label htmlFor="found-date">Date seen</label>
 
             <input
-              id="date"
+              id="found-date"
               name="date"
               type="date"
               value={formData.date}
@@ -250,47 +362,70 @@ function FoundCat() {
           </div>
         </section>
 
-        <section className="form-section">
-          <h2>Add a photo</h2>
+        {/* Photo */}
 
-          <p className="form-help">
-            Upload a clear photo of the cat if you have one.
+        <section className="found-section">
+          <div className="found-section-heading">
+            <span className="section-number">04</span>
+
+            <div>
+              <p className="section-kicker">A PICTURE HELPS</p>
+              <h2>Add a photo</h2>
+            </div>
+          </div>
+
+          <p className="section-description">
+            If you managed to take a photo, adding one can make the report
+            much more useful.
           </p>
 
-          <div className="upload-box">
+          <div className="found-upload">
+            <div className="upload-icon">＋</div>
+
+            <strong>Add a photo of the cat</strong>
+
+            <p>JPG, PNG or other image formats</p>
+
+            <label htmlFor="found-photo">Choose a photo</label>
+
             <input
-              id="photo"
+              id="found-photo"
               name="photo"
               type="file"
               accept="image/*"
               onChange={handleChange}
             />
 
-            <label htmlFor="photo">
-              Choose a photo
-            </label>
-
             {formData.photo && (
-              <p className="selected-file">
-                Selected: {formData.photo.name}
-              </p>
+              <span className="selected-file">
+                {formData.photo.name}
+              </span>
             )}
           </div>
         </section>
 
-        <section className="form-section">
-          <h2>Your details</h2>
+        {/* Account */}
 
-          <p className="form-help">
-            Create an account so you can return to your report and receive
-            updates about potential matches.
+        <section className="found-section account-section">
+          <div className="found-section-heading">
+            <span className="section-number">05</span>
+
+            <div>
+              <p className="section-kicker">STAY CONNECTED</p>
+              <h2>Create your account</h2>
+            </div>
+          </div>
+
+          <p className="section-description">
+            Your account lets you come back to your report and receive updates
+            if a potential match is found.
           </p>
 
-          <div className="form-group">
-            <label htmlFor="full-name">Full name</label>
+          <div className="found-field">
+            <label htmlFor="found-full-name">Full name</label>
 
             <input
-              id="full-name"
+              id="found-full-name"
               name="fullName"
               type="text"
               placeholder="e.g. Arjeta Bokciu"
@@ -303,11 +438,11 @@ function FoundCat() {
             )}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
+          <div className="found-field">
+            <label htmlFor="found-email">Email address</label>
 
             <input
-              id="email"
+              id="found-email"
               name="email"
               type="email"
               placeholder="e.g. you@example.com"
@@ -320,15 +455,15 @@ function FoundCat() {
             )}
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
+          <div className="found-form-grid">
+            <div className="found-field">
+              <label htmlFor="found-password">Password</label>
 
               <input
-                id="password"
+                id="found-password"
                 name="password"
                 type="password"
-                placeholder="Create a password"
+                placeholder="At least 8 characters"
                 value={formData.password}
                 onChange={handleChange}
               />
@@ -338,14 +473,16 @@ function FoundCat() {
               )}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="confirm-password">Confirm password</label>
+            <div className="found-field">
+              <label htmlFor="found-confirm-password">
+                Confirm password
+              </label>
 
               <input
-                id="confirm-password"
+                id="found-confirm-password"
                 name="confirmPassword"
                 type="password"
-                placeholder="Confirm your password"
+                placeholder="Repeat your password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
               />
@@ -358,19 +495,31 @@ function FoundCat() {
         </section>
 
         {submitted && (
-          <div className="success-message">
-            <h2>Report submitted successfully</h2>
+          <div className="found-success">
+            <div className="success-icon">✓</div>
 
-            <p>
-              The found cat report has been submitted. You can return to your
-              account to view your report and potential matches.
-            </p>
+            <div>
+              <strong>Thank you — your report is live.</strong>
+
+              <p>
+                Your report has been submitted. You can return to your account
+                to view it and check for potential matches.
+              </p>
+            </div>
           </div>
         )}
 
-        <button type="submit" className="submit-button">
-          Create Account & Report Cat
-        </button>
+        <div className="found-submit-area">
+          <button type="submit" className="found-submit">
+            Submit report
+            <span>→</span>
+          </button>
+
+          <p>
+            By submitting, you're helping someone in your community find their
+            cat.
+          </p>
+        </div>
       </form>
     </main>
   )
