@@ -376,3 +376,22 @@ main section:last-child button:hover {
     width: 100%;
   }
 }
+
+.success-message {
+  padding: 25px 30px;
+  background: #edf2ec;
+  border: 1px solid #cbd8cd;
+  border-radius: 16px;
+}
+
+.success-message h2 {
+  margin: 0 0 8px;
+  color: #33483e;
+  font-size: 20px;
+}
+
+.success-message p {
+  margin: 0;
+  color: #68716b;
+  line-height: 1.6;
+}
