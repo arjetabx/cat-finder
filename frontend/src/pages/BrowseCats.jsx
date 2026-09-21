@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
 function BrowseCats() {
@@ -132,9 +133,12 @@ function BrowseCats() {
 
                   <p className="cat-location">📍 {cat.location}</p>
 
-                  <button className="view-report-button">
+                  <Link
+                    to={`/report/${cat.id}`}
+                    className="view-report-button"
+                    >
                     View report →
-                  </button>
+                  </Link>
                 </div>
               </article>
             ))}

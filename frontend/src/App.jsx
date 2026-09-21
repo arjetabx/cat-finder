@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import LostCat from './pages/LostCat'
 import FoundCat from './pages/FoundCat'
 import BrowseCats from './pages/BrowseCats'
+import CatReport from './pages/CatReport'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/report/lost" element={<LostCat />} />
         <Route path="/report/found" element={<FoundCat />} />
         <Route path="/browse" element={<BrowseCats />} />
+        <Route path="/report/:id" element={<CatReport />} />
       </Routes>
     </>
   )
