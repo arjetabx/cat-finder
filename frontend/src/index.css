@@ -1887,3 +1887,367 @@
 .nav-report-button:hover {
   background: #174c48;
 }
+
+/* =====================================================
+   BROWSE CATS PAGE
+===================================================== */
+
+.browse-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 65px 6% 100px;
+}
+
+/* Header */
+
+.browse-header {
+  position: relative;
+  margin-bottom: 25px;
+  padding: 55px 60px;
+  overflow: hidden;
+  background: #205c57;
+  border-radius: 30px;
+  color: white;
+}
+
+.browse-header::before {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -100px;
+  top: -150px;
+  border: 60px solid rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+}
+
+.browse-header::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  left: 55%;
+  bottom: -150px;
+  border: 45px solid rgba(242, 182, 50, 0.08);
+  border-radius: 50%;
+}
+
+.browse-header > * {
+  position: relative;
+  z-index: 2;
+}
+
+.browse-label {
+  margin: 0 0 16px;
+  color: #f2b632;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.browse-header h1 {
+  margin: 0;
+  color: #fffaf2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(46px, 6vw, 70px);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -3px;
+}
+
+.browse-header > p:last-child {
+  max-width: 600px;
+  margin: 25px 0 0;
+  color: rgba(255, 250, 242, 0.72);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Search + filters */
+
+.browse-controls {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 15px;
+  margin-bottom: 35px;
+  padding: 20px;
+  background: #fffdf8;
+  border: 1px solid #e8dfd1;
+  border-radius: 20px;
+}
+
+.search-box,
+.filter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.browse-controls label {
+  color: #4f5b56;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.browse-controls input,
+.browse-controls select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 15px;
+  border: 1px solid #ddd8ce;
+  border-radius: 12px;
+  outline: none;
+  background: #faf8f3;
+  color: #253247;
+  font: inherit;
+}
+
+.browse-controls input::placeholder {
+  color: #a2a6a1;
+}
+
+.browse-controls input:focus,
+.browse-controls select:focus {
+  background: #fffdf8;
+  border-color: #205c57;
+  box-shadow: 0 0 0 4px rgba(32, 92, 87, 0.08);
+}
+
+/* Results */
+
+.browse-results {
+  padding: 40px 45px;
+  background: #fffdf8;
+  border: 1px solid #e8dfd1;
+  border-radius: 24px;
+}
+
+.results-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.results-label {
+  margin: 0 0 7px;
+  color: #205c57;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.results-heading h2 {
+  margin: 0;
+  color: #253247;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.results-heading > span {
+  padding: 7px 12px;
+  background: #f1eee6;
+  border-radius: 50px;
+  color: #68736e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Cat cards */
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.cat-card {
+  overflow: hidden;
+  background: #faf7f0;
+  border: 1px solid #e5ded2;
+  border-radius: 19px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cat-card:hover {
+  transform: translateY(-4px);
+  border-color: #c9d5cf;
+  box-shadow: 0 12px 30px rgba(37, 50, 71, 0.08);
+}
+
+/* Image placeholder */
+
+.cat-card-image {
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e7eee8;
+}
+
+.cat-card-image span {
+  width: 75px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffdf8;
+  border-radius: 50%;
+  font-size: 38px;
+}
+
+/* Card content */
+
+.cat-card-content {
+  padding: 20px;
+}
+
+.cat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.status {
+  display: inline-flex;
+  padding: 5px 9px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.status-lost {
+  background: #f5dfd7;
+  color: #a74f40;
+}
+
+.status-found {
+  background: #e3eee5;
+  color: #28634f;
+}
+
+.status-spotted {
+  background: #f4e8c8;
+  color: #87661b;
+}
+
+.cat-date {
+  color: #969b96;
+  font-size: 10px;
+}
+
+.cat-card h3 {
+  margin: 0 0 4px;
+  color: #253247;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.cat-breed {
+  margin: 0 0 8px;
+  color: #59655f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cat-colour {
+  margin: 0 0 15px;
+  color: #7c847f;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cat-location {
+  margin: 0 0 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e5ded2;
+  color: #68736e;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* View report */
+
+.view-report-button {
+  width: 100%;
+  padding: 11px 15px;
+  border: 1px solid #d4ddd8;
+  border-radius: 50px;
+  background: transparent;
+  color: #205c57;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.view-report-button:hover {
+  background: #205c57;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Mobile */
+
+@media (max-width: 850px) {
+  .browse-page {
+    padding: 40px 5% 70px;
+  }
+
+  .browse-header {
+    padding: 45px 35px;
+  }
+
+  .browse-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .browse-results {
+    padding: 30px 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .browse-header {
+    padding: 35px 23px;
+  }
+
+  .browse-header h1 {
+    font-size: 44px;
+    letter-spacing: -2px;
+  }
+
+  .browse-results {
+    padding: 25px 20px;
+  }
+
+  .results-heading {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .cat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-card-image {
+    height: 210px;
+  }
+}
