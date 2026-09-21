@@ -2251,3 +2251,36 @@
     height: 210px;
   }
 }
+
+.no-results {
+  padding: 55px 20px;
+  text-align: center;
+  background: #faf7f0;
+  border: 1px dashed #d8d3c8;
+  border-radius: 18px;
+}
+
+.no-results > span {
+  display: flex;
+  width: 55px;
+  height: 55px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  background: #eaf0e7;
+  border-radius: 50%;
+  font-size: 25px;
+}
+
+.no-results h3 {
+  margin: 0 0 7px;
+  color: #253247;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+}
+
+.no-results p {
+  margin: 0;
+  color: #7c847f;
+  font-size: 12px;
+}
