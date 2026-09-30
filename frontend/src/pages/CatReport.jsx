@@ -1,60 +1,76 @@
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-
-const cats = [
-  {
-    id: 1,
-    name: 'Luna',
-    status: 'Lost',
-    breed: 'Bengal',
-    sex: 'Female',
-    colour: 'Brown with dark spots',
-    location: 'Walthamstow, London',
-    date: '18 September 2026',
-    description:
-      'Luna is a friendly Bengal cat with distinctive dark spots. She may be nervous around unfamiliar people.',
-  },
-  {
-    id: 2,
-    name: 'Unknown',
-    status: 'Found',
-    breed: 'Domestic Shorthair',
-    sex: 'Unknown',
-    colour: 'Ginger and white',
-    location: 'Leyton, London',
-    date: '19 September 2026',
-    description:
-      'Ginger and white cat seen nearby. The cat appeared calm but no owner was nearby.',
-  },
-  {
-    id: 3,
-    name: 'Milo',
-    status: 'Lost',
-    breed: 'British Shorthair',
-    sex: 'Male',
-    colour: 'Grey',
-    location: 'Hackney, London',
-    date: '17 September 2026',
-    description:
-      'Milo is a grey British Shorthair. He is usually friendly but may hide when approached by strangers.',
-  },
-]
 
 function CatReport() {
   const { id } = useParams()
 
-  const cat = cats.find((cat) => cat.id === Number(id))
+  const [cat, setCat] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  if (!cat) {
+  useEffect(() => {
+    async function fetchReport() {
+      try {
+        setIsLoading(true)
+        setError('')
+
+        const response = await fetch(
+          `http://localhost:5001/api/reports/${id}`,
+        )
+
+        if (!response.ok) {
+          throw new Error('Report not found.')
+        }
+
+        const report = await response.json()
+
+        setCat(report)
+      } catch (error) {
+        console.error('Failed to fetch report:', error)
+        setError('Unable to load this cat report.')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchReport()
+  }, [id])
+
+  if (isLoading) {
+    return (
+      <main className="report-not-found">
+        <h1>Loading report...</h1>
+        <p>Getting the latest cat report.</p>
+      </main>
+    )
+  }
+
+  if (error || !cat) {
     return (
       <main className="report-not-found">
         <h1>Report not found</h1>
         <p>
-          We couldn't find the cat report you're looking for.
+          {error || "We couldn't find the cat report you're looking for."}
         </p>
         <Link to="/browse">Back to browse cats</Link>
       </main>
     )
   }
+
+  const status =
+    cat.report_type.charAt(0).toUpperCase() + cat.report_type.slice(1)
+
+  const formattedDate = new Date(cat.date_seen).toLocaleDateString(
+    'en-GB',
+    {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    },
+  )
+
+  const formattedSex =
+    cat.sex.charAt(0).toUpperCase() + cat.sex.slice(1)
 
   return (
     <main className="cat-report-page">
@@ -70,15 +86,15 @@ function CatReport() {
         <div className="cat-report-content">
           <div className="cat-report-top">
             <span
-              className={`status status-${cat.status.toLowerCase()}`}
+              className={`status status-${cat.report_type}`}
             >
-              {cat.status}
+              {status}
             </span>
 
-            <span className="cat-date">{cat.date}</span>
+            <span className="cat-date">{formattedDate}</span>
           </div>
 
-          <h1>{cat.name}</h1>
+          <h1>{cat.cat_name || 'Unknown'}</h1>
 
           <p className="cat-report-breed">
             {cat.breed}
@@ -87,7 +103,7 @@ function CatReport() {
           <div className="cat-details">
             <div>
               <span>Sex</span>
-              <strong>{cat.sex}</strong>
+              <strong>{formattedSex}</strong>
             </div>
 
             <div>
@@ -102,7 +118,7 @@ function CatReport() {
 
             <div>
               <span>Date reported</span>
-              <strong>{cat.date}</strong>
+              <strong>{formattedDate}</strong>
             </div>
           </div>
 

@@ -1,38 +1,39 @@
 import { Link } from 'react-router-dom'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 function BrowseCats() {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
-    const cats = [
-      {
-        id: 1,
-        name: 'Luna',
-        status: 'Lost',
-        breed: 'Bengal',
-        colour: 'Brown with dark spots',
-        location: 'Walthamstow, London',
-        date: '18 September 2026',
-      },
-      {
-        id: 2,
-        name: 'Unknown',
-        status: 'Found',
-        breed: 'Domestic Shorthair',
-        colour: 'Ginger and white',
-        location: 'Leyton, London',
-        date: '19 September 2026',
-      },
-      {
-        id: 3,
-        name: 'Milo',
-        status: 'Lost',
-        breed: 'British Shorthair',
-        colour: 'Grey',
-        location: 'Hackney, London',
-        date: '17 September 2026',
-      },
-    ]
+  const [cats, setCats] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [fetchError, setFetchError] = useState('')
+
+  useEffect(() => {
+    async function fetchReports() {
+      try {
+        setIsLoading(true)
+        setFetchError('')
+
+        const response = await fetch('http://localhost:5001/api/reports')
+
+        if (!response.ok) {
+          throw new Error('Failed to load cat reports.')
+        }
+
+        const reports = await response.json()
+
+        setCats(reports)
+      } catch (error) {
+        console.error('Failed to fetch cat reports:', error)
+        setFetchError('Unable to load cat reports. Please try again.')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchReports()
+  }, [])
+
     const filteredCats = useMemo(() => {
         const search = searchTerm.trim().toLowerCase()
     
@@ -45,11 +46,11 @@ function BrowseCats() {
     
           const matchesStatus =
             statusFilter === 'all' ||
-            cat.status.toLowerCase() === statusFilter
+            cat.report_type() === statusFilter
     
           return matchesSearch && matchesStatus
         })
-      }, [searchTerm, statusFilter])
+      }, [cats, searchTerm, statusFilter])
     
     return (
       <main className="browse-page">
@@ -106,7 +107,19 @@ function BrowseCats() {
             </span>
           </div>
   
-          {filteredCats.length > 0 ? (
+          {isLoading ? (
+            <div className="no-results">
+                <span>🐾</span>
+                <h3>Loading reports...</h3>
+                <p>Getting the latest cat reports.</p>
+            </div>
+            ) : fetchError ? (
+            <div className="no-results">
+                <span>⚠️</span>
+                <h3>Unable to load reports</h3>
+                <p>{fetchError}</p>
+            </div>
+            ) : filteredCats.length > 0 ? (
           <div className="cat-grid">
             {filteredCats.map((cat) => (
               <article className="cat-card" key={cat.id}>
@@ -117,15 +130,15 @@ function BrowseCats() {
                 <div className="cat-card-content">
                   <div className="cat-card-top">
                     <span
-                      className={`status status-${cat.status.toLowerCase()}`}
+                      className={`status status-${cat.report_type}`}
                     >
-                      {cat.status}
+                      {cat.report_type.charAt(0).toUpperCase() + cat.report_type.slice(1)}
                     </span>
 
-                    <span className="cat-date">{cat.date}</span>
+                    <span className="cat-date">{cat.date_seen}</span>
                   </div>
 
-                  <h3>{cat.name}</h3>
+                  <h3>{cat.cat_name || 'Unknown'}</h3>
 
                   <p className="cat-breed">{cat.breed}</p>
 
